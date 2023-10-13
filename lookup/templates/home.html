@@ -2,6 +2,24 @@
 
 {% block content %}
 
-<h1>hello world</h1>
 
+
+
+
+{% if api %}
+    {% if api == 'error' %}
+        error.. try again
+    {% else %}
+
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3 {{category_color}}">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold"> {{api.0.Category.Name}} </h1>
+            <p class="col-md-8 fs-4 lead">Current {{api.0.ReportingArea}}  Air Quality: {{api.0.AQI}}</p>
+            <p >{{category_description}}</p>
+        </div>
+    </div>
+
+    {% endif %}
+{% endif %}
 {% endblock  %}
