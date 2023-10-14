@@ -4,11 +4,16 @@ from django.shortcuts import render
 def home(request):
     import json
     import requests
-    my_req = requests.get("https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=89129&distance=5&API_KEY=6B2240FC-D0B1-403A-BF20-1F2FE0260E8F")
+    if request.method == "POST":
+        zipcode = request.POST['zipcode']
+        print(zipcode)
+        my_req = requests.get("https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode="+ zipcode +"&distance=5&API_KEY=6B2240FC-D0B1-403A-BF20-1F2FE0260E8F")
+    else:
+        my_req = requests.get("https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=89129&distance=5&API_KEY=6B2240FC-D0B1-403A-BF20-1F2FE0260E8F")
+
 
     try:
         api = json.loads(my_req.content)
-
         if api[0]['Category']['Name'] == "Good":   
                 category_description = "(0 -50) Air quality is considered satisfactory, and air pollution poses little or no risk."
                 category_color = "good"
@@ -30,6 +35,7 @@ def home(request):
 
     except Exception as e:
         api = 'error'
+        return render(request, 'home.html', {'api': api})
 
 
 
