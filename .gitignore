@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+myenv/
+env/
+.venv/
+
+# Local secrets
+.env
+
+# Local database
+*.sqlite3
